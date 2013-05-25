@@ -1,0 +1,44 @@
+Project plan
+============
+
+
+1. Data processing and cleaning
+2. Exploratory analysis and summary statistics
+3. Modeling framework and potential statistical tools/approaches
+
+
+Modules to build:
+=================
+
+processData(raw_data)
+----------------------
+We will build a separate utility strictly for data processing and cleaning. Nothing analytical happening here. Purely data cleaning and file conversion. 
+Input: JSON data on users, businesses, posts, etc.
+Output: NumPY or Pandas arrays of information to be used for statistical modeling.
+
+
+subsample(processed_data)
+-------------------------
+This might not be necessary given the size of our data, but this module can take the full set of processed data and take a random sample from it. I already have a built version of this, so we should be set for this.
+Input: Data array
+Output: Data array
+
+
+crossValidation(processed_data)
+-------------------------------
+Another random sampler of the processed data for the sake of testing potential models. Should be general to the method used to produce comparable error metrics. Will also be useful for optimizing model parameters within approaches.
+I have a variation of the CV module already, so this shouldn't be too hard. Also, many packages already include a built-in CV utility, so we might be okay with this already.
+
+
+===========================================================
+
+We will not be reinventing any wheel. All analytical packages are already pre-built. There should be very little custom work needed aside from initial data processing.
+
+
+The hardest part will be text analysis. We will use the NLTK package to use text information in a useful way. This means identifying terms that are predictive in some way, which isn't always a programmatic thing to do.
+
+This is categorical prediction (classification). We will use methods that are as simple as naive bayes classification to random forests to maybe even something like SVM or gaussian mixture modeling. (Or combinations of it).
+
+We will have a mathematical model that will motivate our approach. In particular, we will estimate a latent classification of optimistic versus pessimistic versus neutral (mean-reverting) reviewers. That will be an intermediate input into our predictive model for business ratings. I will draft up a general model soon.
+
+
