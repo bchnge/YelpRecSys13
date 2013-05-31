@@ -1,27 +1,29 @@
-Project plan
-============
+Project plan (WITH ASSIGNMENTS)
+
+2013/05/31 <-- yes, we are going to get into the habit of proper date labeling
+============================================================================
 
 
-1. Data processing and cleaning
+1. Data processing 
+    a. Convert API (json) to Pandas...DONE
+    b. merge different datasets (users, businesses, reviews, checkins) together into one master dataset (ALL HANDS ON DECK)
+ 
+ 
+----- once we get data processing out of the way, we can split up and tackle different problems below. start to think about which you are most interested in working on. Put your name next to anything you are interested in (or possibly interested in)-----
+
+
+ 
 2. Exploratory analysis and summary statistics
+    a. summary stats (mean, range, plot histograms) of each variable
+    b. determine an initial hypothesis list of relevant/predictive user and business variables
+
 3. Modeling framework and potential statistical tools/approaches
+    a. build classifiers (random forests, naive bayes, SVM, multilogit)
+    b. build cross-validator and error metric comparisons tools (ROC curves and classification error matrices)
 
+4. a more rigorous approach **** if we have time
+    a. probablistic approach and mathematical modeling (imagine latent classes for actual user optimism, business quality).    
 
-Modules to build:
-=================
-
-processData(raw_data)
-----------------------
-We will build a separate utility strictly for data processing and cleaning. Nothing analytical happening here. Purely data cleaning and file conversion. 
-Input: JSON data on users, businesses, posts, etc.
-Output: NumPY or Pandas arrays of information to be used for statistical modeling.
-
-
-subsample(processed_data)
--------------------------
-This might not be necessary given the size of our data, but this module can take the full set of processed data and take a random sample from it. I already have a built version of this, so we should be set for this.
-Input: Data array
-Output: Data array
 
 
 crossValidation(processed_data)
