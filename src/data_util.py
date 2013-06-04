@@ -48,3 +48,35 @@ def preview_json(file):
             
     print data[1].keys()
 
+
+def checkin2dataframe (file):
+    import pandas as pd
+    import json
+    """ this utility will convert the checkin data to data frame
+    """
+    data = []
+    with open(file,'r') as f:
+        for line in f:
+            data.append(json.loads(line))
+            
+    df = pd.DataFrame(index = range(0,len(data)))
+            
+    for hour in range(0,24):
+        for week in range(0,7):
+            df[str(hour) + "-" + str(week)] = pd.Series()    
+            
+    for d in range(0,len(data)):
+        for t in data[d]['checkin_info']:
+            df[t][d] = data[d]['checkin_info'][t]
+    
+    # Missing --> 0
+    df = df.fillna(0)
+    
+    # bring in the rest of the columns
+    for col in data[1].keys():
+        if col != 'checkin_info':
+            df[col] = [v[col] for v in data]
+            
+    return df
+                
+
