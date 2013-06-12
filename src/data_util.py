@@ -79,4 +79,26 @@ def checkin2dataframe (file):
             
     return df
                 
-
+def constructData(masterdata, include_list):
+    """ Takes in a master dataframe and an array of variables to be included in the produced dataset. This should be used for constructing x and y datasets """
+    import pandas as pd
+    
+    newData = pd.DataFrame(index = masterdata.index)
+    for variable in include_list:
+        if type(masterdata[variable][0]) == unicode:
+            temp = pd.get_dummies(masterdata[variable])   
+            for col in temp:
+                newData['d_' + str(variable) + str(col)] = temp[col]        
+        else:
+            newData[variable] = masterdata[variable]
+    return newData
+    
+    
+def combineIntersectXY(x,y):
+    """ combines x and y dataframes and produces an intersection of nonmissing data. Returns new X and new Y"""
+    import pandas as pd
+    tempData = y.join(x)
+    temp2Data = tempData.dropna(how = 'any')
+    newY = temp2Data.ix[:,0]
+    newX = temp2Data.ix[:,1:]
+    return newX, newY
