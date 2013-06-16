@@ -102,3 +102,18 @@ def combineIntersectXY(x,y):
     newY = temp2Data.ix[:,0]
     newX = temp2Data.ix[:,1:]
     return newX, newY
+
+def text2featureArray(master, corpus, y_var, max_features):
+    """ convert a corpus to a dataframe to be added to the master dataset. Returns new master dataset and the vectorizer used"""
+    import pandas
+    import sklearn.feature_extraction.text as feText
+    vectorizer = feText.TfidfVectorizer(stop_words = 'english', max_features = max_features)
+    data = vectorizer.fit_transform(corpus.values, y = y_var.values)
+    
+    feature_list = vectorizer.get_feature_names()
+    
+    df = pd.DataFrame(data = data.toarray(), columns = feature_list, index = master.index)
+    newMaster = master
+    for feature in feature_list:
+        newMaster['f_' + str(feature)] = df[feature]
+    return newMaster, vectorizer
