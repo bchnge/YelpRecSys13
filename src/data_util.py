@@ -105,7 +105,7 @@ def combineIntersectXY(x,y):
 
 def text2featureArray(master, corpus, y_var, max_features):
     """ convert a corpus to a dataframe to be added to the master dataset. Returns new master dataset and the vectorizer used"""
-    import pandas
+    import pandas as pd
     import sklearn.feature_extraction.text as feText
     vectorizer = feText.TfidfVectorizer(stop_words = 'english', max_features = max_features)
     data = vectorizer.fit_transform(corpus.values, y = y_var.values)
