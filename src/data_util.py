@@ -169,6 +169,14 @@ def get_features(dataframe):
             features.append(col)
     return features
     
+def get_checkins(dataframe):
+    """ Returns a list of column names representing all features in dataframe. Features are prefixed with chk_ """
+    features = []
+    for col in dataframe.columns:
+        if col[0:4] == 'chk_':
+            features.append(col)
+    return features    
+    
 def applyVectorizer(vectorizer, to_data, corpus_var): 
     """
     Add vectorized features to target dataframe using a trained vectorizer
