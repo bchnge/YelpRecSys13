@@ -211,3 +211,38 @@ def rescale(array, min_prime, max_prime):
         new_array.append(item)
     return new_array
     
+    
+def optimizeK(dataframe, ylist, xlist, minval = 600, maxval = 1000, ticksize=100 ):
+    """ choose the optimal number of estimators for a Gradient boosting Regressor classifier
+dataframe: dataset we are working with
+ylist: list of dep var
+xlist: list of indep vars
+
+minval: minimum number of estimators to test for
+maxval: maximum number of estimators to test for
+ticksize: step size for testing
+
+"""
+    
+    K_vals = arange(minval, maxval + ticksize, step = ticksize)
+    y = du.constructData(dataframe, include_list = ylist)
+    x = du.constructData(dataframe, include_list = xlist)
+    x,y = du.combineIntersectXY(x,y)
+
+    optimal_K = 0
+    optimal_rmse = 99999
+    
+    resulttable = []
+    run = 0
+    for val in K_vals:
+        run+=1
+        classifier = ensemble.GradientBoostingRegressor(random_state = 1, n_estimators=val, learning_rate = 0.05)
+        rmse = rm.evaluateModel(x,y,classifier)
+        resulttable.append([run,val,rmse])
+        if rmse < optimal_rmse:
+            optimal_K = val
+            optimal_rmse = rmse
+    print resulttable        
+    return optimal_K, resulttable  
+   
+
