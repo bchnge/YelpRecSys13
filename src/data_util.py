@@ -245,4 +245,11 @@ ticksize: step size for testing
     print resulttable        
     return optimal_K, resulttable  
    
+   
+def dummytize(dataframe, category, prefix):
+    dummies = pd.get_dummies(dataframe[category])
+    newdf = dataframe.copy()
+    for col in dummies.columns:
+        newdf[prefix+'_'+str(col)] = dummies[col]
+    return newdf 
 
